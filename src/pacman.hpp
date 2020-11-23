@@ -12,8 +12,7 @@
  *          Recebe 'false' se o pacman pode comer os fantasmas.
  * 
  */
-class Pacman : public Component
-{
+class Pacman : public Component {
     private :
         bool vulnerable;
     public :

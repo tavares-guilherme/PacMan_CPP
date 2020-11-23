@@ -1,12 +1,9 @@
-
 #include "raylib-cpp.hpp"
 #include "map.hpp"
 #include "pacman.hpp"
 #include "position.hpp"
 
-int main() {
-
-    
+int main(void) {
     int screenWidth = 720;
     int screenHeight = 720;
 
@@ -16,12 +13,8 @@ int main() {
     raylib::Color textColor(LIGHTGRAY);
     raylib::Vector2 shape(50,50);;
 
-    int t = 0;
-
     // Main game loop
-    while (!w.ShouldClose())    // Detect window close button or ESC key
-    {
-
+    while (!w.ShouldClose()) {
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
