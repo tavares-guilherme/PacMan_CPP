@@ -4,9 +4,8 @@
 #include "component.hpp"
 
 /*
- * Classe que representa o mapa e seus atributos.
- */
-
+* Classe que representa o mapa e seus atributos.
+*/
 class Map{
     private:
         int** board; /*!- Matriz que armazena o que há em cada espaço do jogo. Será uma região Crítica -!*/
@@ -15,10 +14,8 @@ class Map{
         Map(int** board); 
         void  ResetMap();
         int** GetBoard();
+};
 
-        
-
-}
-
+Map loadMap(FILE* mapFile);
 
 #endif
