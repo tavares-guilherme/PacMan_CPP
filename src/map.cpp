@@ -3,43 +3,51 @@
 #include <stdio.h>
 #include "map.hpp"
 
-Map loadMap(FILE* mapFile) {
-    if (mapFile == NULL)
-        return NULL;
+#define WALL   1
+#define POINT  2
+#define PACMAN 3
+#define ENEMY  4
 
-    // Allocate memory for map
-    int** map = new int*[11];
+Map::Map(FILE* mapFile) {
+    if (mapFile != NULL) {
+            
 
-    for (int i = 0; i < 11; i++) {
-        map[i] = new int[20];
-        memset(map[i], 0, sizeof(map[i]));
-    }
+        // Allocate memory for map
+        int** map = new int*[11];
 
-    // Load map from file
-    int i = 0, j = 0;
-
-    while (!feof(mapFile)) {
-        char currentChar;
-        currentChar = getc(mapFile);
-
-        if (currentChar == '\n') {
-            i++;
-
-            continue;
-        } else if (currentChar == '=') {
-            // Collision wall
-            map[i][j] = 1;
-        } else if (currentChar == '.') {
-            // Point
-        } else if (currentChar == 'P') {
-            // Pacman Spawn
-        } else if (currentChar == 'E') {
-            // Enemy spawn
+        for (int i = 0; i < 11; i++) {
+            map[i] = new int[20];
+            memset(map[i], 0, sizeof(map[i]));
         }
 
-        j++;
-    }
+        // Load map from file
+        int i = 0, j = 0;
 
+        while (!feof(mapFile)) {
+            char currentChar;
+            currentChar = getc(mapFile);
 
-    return NULL;
+            if (currentChar == '\n') {
+                i++;
+
+                continue;
+            } else if (currentChar == '=') {
+                // Collision wall
+                map[i][j] = WALL;
+            } else if (currentChar == '.') {
+                // Point
+                map[i][j] = POINT;
+            } else if (currentChar == 'P') {
+                // Pacman Spawn
+                map[i][j] = PACMAN;
+            } else if (currentChar == 'E') {
+                // Enemy spawn
+                map[i][j] = ENEMY;
+            }
+
+            j++;
+        }
+
+        board = map;
+    }else board = NULL;
 }
