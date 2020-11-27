@@ -1,31 +1,45 @@
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
 #include "raylib-cpp.hpp"
 #include "map.hpp"
-#include "pacman.hpp"
-#include "position.hpp"
+#include "cstring"
 
-int main(void) {
-    int screenWidth = 720;
-    int screenHeight = 720;
+using namespace std;
 
-    raylib::Window w(screenWidth, screenHeight, "raylib [textures] example - image loading");
-    raylib::Texture texture("../src/resources/maze.png");
-    raylib::Color background(RAYWHITE);
+#define DEBUG 1
+
+int main() {
+    
+    // To-do: Improve Map Selection
+    FILE* fMap = fopen("../src/resources/map.txt", "r");
+    if(fMap == NULL) return 1;
+    Map map(fMap);
+
+    int screenWidth = map.getWindowWidth();
+    int screenHeight = map.getWindowHeight();
+    
     raylib::Color textColor(LIGHTGRAY);
-    raylib::Vector2 shape(50,50);;
+    raylib::Window w(screenWidth, screenHeight, "raylib [core] example - basic window");
+    
 
-    // Main game loop
-    while (!w.ShouldClose()) {
-        // Draw
-        //----------------------------------------------------------------------------------
+
+    SetTargetFPS(60);
+
+    while (!w.ShouldClose())    // Detect window close button or ESC key
+    {
+       
         BeginDrawing();
 
-            background.ClearBackground();
-            texture.Draw(0,0);
-            shape.DrawCircle(2, WHITE);
-            
+        ClearBackground(BLACK);
+        // To-do: invoke it as a thread
+        map.DrawMap();
+
         EndDrawing();
-        //----------------------------------------------------------------------------------
+       
     }
+
+    fclose(fMap);
 
     return 0;
 }
