@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "map.hpp"
 #include "raylib-cpp.hpp"
+#include "pacman.hpp"
 
 #define WALL   '='
 #define POINT  '.'
@@ -26,11 +27,13 @@ class Map{
         char **board; /*!- Matriz que armazena o que há em cada espaço do jogo. Será uma região Crítica -!*/
         Map(FILE* mapFile); 
         void  ResetMap();
-        void  DrawMap();
+        void  DrawMap(Pacman *p);
         int getWidth();
         int getHeight();
         int getWindowWidth();
         int getWindowHeight();
+        void load();
+        void unload();
 };
 
 Map::Map(FILE* mapFile) {
@@ -91,8 +94,9 @@ Map::Map(FILE* mapFile) {
     }else board = NULL;
 }
 
+
 // To-do: Invoke it as a thread
-void Map::DrawMap() {
+void Map::DrawMap(Pacman *p) {
 
     char currentChar;
 
@@ -110,7 +114,10 @@ void Map::DrawMap() {
                                 (this->frame + this->scale * i) + this->scale/2, // Center PosY
                                  2, WHITE);                        // Radius and Color 
                     break;
-                // To-do: Pacman and ghosts sprites (and problably animations)
+                case (PACMAN):
+                    p->setX(j); p->setY(i);
+                    DrawTexture(p->getTexture(), this->frame + this->scale *j, this->frame + this->scale * i, WHITE);
+                    break;
             }
         }
     }
