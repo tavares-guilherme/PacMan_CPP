@@ -11,20 +11,27 @@ using namespace std;
 #define DEBUG 1
 
 int main() {
-    
-    // To-do: Improve Map Selection
-    FILE* fMap = fopen("../src/resources/map.txt", "r");
-    if(fMap == NULL) return 1;
-    Map map(fMap);
+    // 
+    Pacman pacman(0,0);
 
+    // To-do: Improve Map Selection
+    FILE* mapFile = fopen("../src/resources/map.txt", "r");
+    Map map(mapFile, &pacman);
+
+    if (mapFile == NULL)
+        return 1;
+    
+    // 
     int screenWidth = map.getWindowWidth();
     int screenHeight = map.getWindowHeight();
-    Pacman pacman(0,0);
-    
-    raylib::Color textColor(LIGHTGRAY);
+
+    // 
     raylib::Window w(screenWidth, screenHeight, "raylib [core] example - basic window");
     
+    // Load
     pacman.load();
+
+    // Config
     SetTargetFPS(60);
 
     while (!w.ShouldClose())    // Detect window close button or ESC key
@@ -43,8 +50,10 @@ int main() {
        
     }
 
+    // Unload
     pacman.unload();
-    fclose(fMap);
+
+    fclose(mapFile);
 
     return 0;
 }
