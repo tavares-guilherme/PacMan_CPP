@@ -16,7 +16,7 @@
 /*
  * Classe que representa o mapa e seus atributos.
  */
-class Map{
+class Map {
     private:
         int scale = 20;
         int frame = 20;
@@ -24,19 +24,23 @@ class Map{
         int height;
 
     public:
-        char **board; /*!- Matriz que armazena o que há em cada espaço do jogo. Será uma região Crítica -!*/
-        Map(FILE* mapFile); 
+        char **board; /*!- Matriz que armazena o que há em cada espaço do jogo. Será uma região Crítica -!*/ 
+
+        Map(FILE* mapFile, Pacman* pacman); 
         void  ResetMap();
+
+        void load();
+        void unload();
+
         void  DrawMap(Pacman *p);
+
         int getWidth();
         int getHeight();
         int getWindowWidth();
         int getWindowHeight();
-        void load();
-        void unload();
 };
 
-Map::Map(FILE* mapFile) {
+Map::Map(FILE* mapFile, Pacman* pacman) {
     
     if (mapFile != NULL) {
         
@@ -84,6 +88,8 @@ Map::Map(FILE* mapFile) {
             } else if (currentChar == PACMAN) {
                 // Pacman Spawn
                 board[i][j] = PACMAN;
+
+                // Send x and y to pacman class
             } else if (currentChar == ENEMY) {
                 // Enemy spawn
                 board[i][j] = ENEMY;
@@ -115,8 +121,8 @@ void Map::DrawMap(Pacman *p) {
                                  2, WHITE);                        // Radius and Color 
                     break;
                 case (PACMAN):
-                    p->setX(j); p->setY(i);
-                    DrawTexture(p->getTexture(), this->frame + this->scale *j, this->frame + this->scale * i, WHITE);
+                    /*p->setX(j); p->setY(i);
+                    DrawTexture(p->getTexture(), this->frame + this->scale *j, this->frame + this->scale * i, WHITE);*/
                     break;
             }
         }
@@ -128,6 +134,10 @@ int Map::getHeight() { return this->height; }
 
 int Map::getWindowWidth()  { return(this->width  * this->scale + 2*this->frame); }
 int Map::getWindowHeight() { return(this->height * this->scale + 2*this->frame); }
+
+int Map::isWall(int x, int y) {
+    // Check if the pixel on that position is a wall
+}
 
 
 #endif
