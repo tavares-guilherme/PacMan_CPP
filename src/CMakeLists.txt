@@ -42,7 +42,7 @@ endif()
 
 # This is the main part:
 set(PROJECT_NAME raylib-cpp-example)
-set(PROJECT_SOURCES main.cpp)
+set(PROJECT_SOURCES main.cpp physac.h map.cpp pacman.cpp)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} PUBLIC raylib raylib-cpp)

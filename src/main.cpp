@@ -42,9 +42,12 @@ int main() {
         ClearBackground(BLACK);
 
         // To-do: Detect movement key
+        pacman.getKeyboardMovement();
+        pacman.doMovement(&map);
 
         // To-do: invoke it as a thread
-        map.DrawMap(&pacman);
+        map.draw();
+        pacman.draw(map.getFrame(), map.getScale());
 
         EndDrawing();
        

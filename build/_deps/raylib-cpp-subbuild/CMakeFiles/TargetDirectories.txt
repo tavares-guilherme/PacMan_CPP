@@ -1,0 +1,3 @@
+/home/guilherme/Área de Trabalho/PacMan_CPP/build/_deps/raylib-cpp-subbuild/CMakeFiles/rebuild_cache.dir
+/home/guilherme/Área de Trabalho/PacMan_CPP/build/_deps/raylib-cpp-subbuild/CMakeFiles/edit_cache.dir
+/home/guilherme/Área de Trabalho/PacMan_CPP/build/_deps/raylib-cpp-subbuild/CMakeFiles/raylib-cpp-populate.dir
