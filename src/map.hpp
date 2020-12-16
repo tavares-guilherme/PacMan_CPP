@@ -7,13 +7,9 @@
 #include <vector>
 #include "raylib-cpp.hpp"
 #include "pacman.hpp"
-#include "physac.h"
-
 using namespace std;
 
 class Pacman;
-
-#define PHYSAC_IMPLEMENTATION
 
 #define WALL   '='
 #define POINT  '.'
@@ -29,8 +25,6 @@ class Map {
         int frame = 20;
         int width;
         int height;
-
-        vector<PhysicsBody> walls;
 
     public:
         char **board; /*!- Matriz que armazena o que há em cada espaço do jogo. Será uma região Crítica -!*/ 

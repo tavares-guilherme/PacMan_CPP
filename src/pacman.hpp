@@ -4,9 +4,6 @@
 
 #include "raylib-cpp.hpp"
 #include "map.hpp"
-#include "physac.h"
-
-#define PHYSAC_IMPLEMENTATION
 
 #define UP 1
 #define DOWN 2
@@ -17,14 +14,16 @@ class Map;
 
 class Pacman {
     private :
-        float x;
-        float y;
+        double x;
+        double y;
         int movement;
-        float speed = 0;
+        int n_move;
+        double speed_x = 0;
+        double speed_y = 0;
 
-        PhysicsBody body;
         Texture2D texture;
-        
+
+        bool checkNextMove(Map *map);
     public :
         Pacman(int a, int b);
 
@@ -33,10 +32,10 @@ class Pacman {
 
         void draw(int frame, int scale);
 
-        void setX(float a);
-        void setY(float b);
-        float getX();
-        float getY();
+        void setX(double a);
+        void setY(double b);
+        double getX();
+        double getY();
         Texture2D getTexture();
 
         void getKeyboardMovement();

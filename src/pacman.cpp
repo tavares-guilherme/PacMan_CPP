@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <cstring>
 #include <stdio.h>
+#include <math.h>
 #include "map.hpp"
-#include "physac.h"
+
+using namespace std;
 
 Pacman::Pacman(int a, int b) {
     this->x = a; 
     this->y = b;
-
-    this->body = CreatePhysicsBodyRectangle((Vector2) {a, b}, 10, 10, 10);
 }
 
 void Pacman::load() {
@@ -20,22 +20,33 @@ void Pacman::unload() {
     UnloadTexture(this->texture);
 }
 
-void Pacman::setX(float a){
+void Pacman::setX(double a) {
     this->x = a;
 }
-void Pacman::setY(float b){this->y = b;}
-float  Pacman::getX(){return this->x;}
-float  Pacman::getY(){return this->y;}
+void Pacman::setY(double b){this->y = b;}
+double  Pacman::getX(){return this->x;}
+double  Pacman::getY(){return this->y;}
 Texture2D Pacman::getTexture(){return this->texture;}
 
 void Pacman::draw(int frame, int scale) {
     // Arrumar o scale e frame
-    std::cout << this->x << ", " << this->y << std::endl;
-    DrawTexture(this->getTexture(), frame + scale * this->x, frame + scale * this->y, WHITE);
+
+    cout << "Draw | X, Y = " << this->x << " " << this->y  << endl;
+    cout << "Draw | SX, SY = " << this->speed_x << " " << this->speed_y << endl; 
+    DrawTexture(this->getTexture(), frame + scale * (this->x + this->speed_x), frame + scale * (this->y + this->speed_y), WHITE);
+}
+
+double getPositive(double x) {
+    if (x < 0)
+        return x * -1;
+    
+    return x;
 }
 
 void Pacman::getKeyboardMovement() {
-    if (this->x - (int) this->x == 0 && this->y - (int) this->y == 0) {
+
+    // First movement    
+    if(this->speed_x == 0 && this->speed_y == 0) {
         if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
             this->movement = UP;
         } else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
@@ -45,44 +56,112 @@ void Pacman::getKeyboardMovement() {
         } else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
             this->movement = RIGHT;
         }
+    } else {
+        if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
+            this->n_move = UP;
+        } else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
+            this->n_move = DOWN;
+        } else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
+            this->n_move = LEFT;
+        } else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
+            this->n_move = RIGHT;
+        }
+    
+    }
+
+
+    cout << this->movement << endl;
+}
+
+// Check if the next move is possible, that is, if there isn't a wall in the path.
+bool Pacman::checkNextMove(Map *map) {
+    switch(this->n_move) {
+        case(UP):
+            if(map->isWall(this->y - 1, this->x)) return false;
+            else return true;
+            break;
+        case(DOWN):
+            if(map->isWall(this->y + 1, this->x)) return false;
+            else return true;
+            break;
+        case(RIGHT):
+            if(map->isWall(this->y, this->x + 1)) return false;
+            else return true;
+            break;
+        case(LEFT):
+            if(map->isWall(this->y, this->x -1)) return false;
+            else return true;
+            break;
     }
 }
 
 void Pacman::doMovement(Map *map) {
-    float next_speed_x = this->x;
-    float next_speed_y = this->y;
-    int next_x = this->x;
-    int next_y = this->y;
-    float speed = 0.05;
+    double speed = 0.05;
 
-    // Maquina de estados dos movimentos possiveis
+    if (abs(this->speed_x) >= 1.0) {
+        if (this->movement == LEFT) {
+            this->x -= 1;
 
-    switch (movement) {
-        case UP:
-            next_speed_y -= speed;
-            next_y--;
-            break;
-        case DOWN:
-            next_speed_y += speed;
-            next_y++;
-            break;
-        case LEFT:
-            next_speed_x -= speed;
-            next_x--;
-            break;
-        case RIGHT:
-            next_speed_x += speed;
-            next_x++;
-            break;
-        default:
-            break;
+            cout << "Entrou LEFT" << endl;
+        } else if (this->movement == RIGHT) {
+            this->x += 1;
+            
+            cout << "Entrou right" << endl;
+        }
+
+        // After finishing this move, set the next move
+        
+        // If the next move is possible, change the direction
+        if(this->checkNextMove(map)) {
+            this->speed_x = 0;
+            this->movement = this->n_move;
+        } else
+            this->speed_x = 0.001;
+        
+    } else {
+        if (this->movement == LEFT && !map->isWall(this->y, this->x  + this->speed_x)) {
+            this->speed_x -= speed;
+            this->speed_y = 0;
+        } else if (this->movement == RIGHT && !map->isWall(this->y, this->x + 1 + this->speed_x)) {
+            this->speed_x += speed;
+            this->speed_y = 0;
+        } else {
+            this->speed_x = 0;
+        }
     }
 
-    if (!map->isWall(next_y, next_x)) {
-        // Realiza o movimento
-        // Speed em relação ao tempo
+    if (abs(this->speed_y) >= 1.0) {
+        if (this->movement == UP) {
+            this->y -= 1;
+
+            cout << "Entrou UP" << endl;
+        } else if (this->movement == DOWN) {
+            this->y += 1;
+            
+            cout << "Entrou DOWN" << endl;
+        }
+
+        cout << "Entrou no if" << endl;
+
+        // After finishing this move, set the next move
         
-        this->x = next_speed_x;
-        this->y = next_speed_y;
+        // If the next move is possible, change the direction
+        if(this->checkNextMove(map)) {
+            this->movement = this->n_move;
+            this->speed_y = 0;
+        }else 
+            this->speed_y = 0.001;
+        
+
+    } else {
+        if (this->movement == UP && !map->isWall(this->y + this->speed_y, this->x)) {
+            this->speed_y -= speed;
+            this->speed_x = 0;
+        } else if (this->movement == DOWN && !map->isWall(this->y + 1 + this->speed_y, this->x)) {
+            this->speed_y += speed;
+            this->speed_x = 0;
+        } else {
+            this->speed_y = 0;
+        }
     }
 }

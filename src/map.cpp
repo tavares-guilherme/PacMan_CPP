@@ -3,7 +3,6 @@
 #include <cstring>
 #include <stdio.h>
 #include "pacman.hpp"
-#include "physac.h"
 
 Map::Map(FILE* mapFile, Pacman* pacman) {
     if (mapFile != NULL) {
@@ -45,10 +44,7 @@ Map::Map(FILE* mapFile, Pacman* pacman) {
                 continue;
             } else if (currentChar == WALL) {
                 // Collision wall
-                board[i][j] = WALL;
-                PhysicsBody aux;
-                aux = CreatePhysicsBodyRectangle( (Vector2) {(float) j, (float) i}, 10, 10, 10);
-                walls.push_back(aux);
+                board[i][j] = WALL;    
             } else if (currentChar == POINT) {
                 // Point
                 board[i][j] = POINT;

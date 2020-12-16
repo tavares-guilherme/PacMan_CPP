@@ -42,6 +42,7 @@ int main() {
         ClearBackground(BLACK);
 
         // To-do: Detect movement key
+       
         pacman.getKeyboardMovement();
         pacman.doMovement(&map);
 
