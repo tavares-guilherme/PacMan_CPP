@@ -7,14 +7,18 @@
 #include <vector>
 #include "raylib-cpp.hpp"
 #include "pacman.hpp"
+#include "enemy.hpp"
 using namespace std;
 
 class Pacman;
 
-#define WALL   '='
-#define POINT  '.'
-#define PACMAN 'P'
-#define ENEMY  'C'
+
+#define WALL        '='
+#define POINT       '.'
+#define PACMAN      'P'
+#define REDENEMY    'R'
+#define YELLOWENEMY 'Y'
+#define EMPTY       ' '
 
 /*
  * Classe que representa o mapa e seus atributos.
@@ -25,11 +29,13 @@ class Map {
         int frame = 20;
         int width;
         int height;
+        int maxScore = 0;
+        int currScore = 0;
 
     public:
         char **board; /*!- Matriz que armazena o que há em cada espaço do jogo. Será uma região Crítica -!*/ 
 
-        Map(FILE* mapFile, Pacman* pacman); 
+        Map(FILE* mapFile, Pacman* pacman, Enemy* red, Enemy* yellow); 
         void  ResetMap();
         bool isWall(int x, int y);
 
@@ -44,6 +50,7 @@ class Map {
         int getWindowHeight();
         int getFrame();
         int getScale();
+        void computeScore(int x, int y);
 };
 
 

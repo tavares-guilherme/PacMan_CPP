@@ -230,6 +230,33 @@ glfw_objlib/fast:
 	$(MAKE) -f _deps/raylib-build/src/external/glfw/src/CMakeFiles/glfw_objlib.dir/build.make _deps/raylib-build/src/external/glfw/src/CMakeFiles/glfw_objlib.dir/build
 .PHONY : glfw_objlib/fast
 
+enemy.o: enemy.cpp.o
+
+.PHONY : enemy.o
+
+# target to build an object file
+enemy.cpp.o:
+	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/enemy.cpp.o
+.PHONY : enemy.cpp.o
+
+enemy.i: enemy.cpp.i
+
+.PHONY : enemy.i
+
+# target to preprocess a source file
+enemy.cpp.i:
+	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/enemy.cpp.i
+.PHONY : enemy.cpp.i
+
+enemy.s: enemy.cpp.s
+
+.PHONY : enemy.s
+
+# target to generate assembly for a file
+enemy.cpp.s:
+	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/enemy.cpp.s
+.PHONY : enemy.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -329,6 +356,9 @@ help:
 	@echo "... raylib_static"
 	@echo "... glfw"
 	@echo "... glfw_objlib"
+	@echo "... enemy.o"
+	@echo "... enemy.i"
+	@echo "... enemy.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -1,45 +1,40 @@
 #ifndef __ENEMY 
 #define __ENEMY
 
-#include "enemy.hpp"
-#include "pacman.hpp"
-#include "map.hpp"
 #include "raylib-cpp.hpp"
+#include "map.hpp"
 
 #define RED_ENEMY 1
 #define YELLOW_ENEMY 2
 
+class Map;
+
 class Enemy {
     private:
-        float x;
-        float y;
+        int x;
+        int y;
+        int movement;
+        double speed_x = 0;
+        double speed_y = 0;
 
         Texture2D texture;
 
+        bool checkNextMove(Map *map, int direction);
         int type;
     public:
         Enemy(int type);
 
+        void draw(int frame, int scale);
+
+
+        void setX(int a);
+        void setY(int b);
+        Texture2D getTexture();
+        
         void load();
         void unload();
 
-        void doMovement(Map* map);
+        void doMovement(Map *map);
 };
-
-void Enemy::load() {
-    if (this->type == RED_ENEMY) {
-        this->texture = LoadTexture("../src/resources/enemy-1.png");
-    } else {
-        this->texture = LoadTexture("../src/resources/enemy-2.png");
-    }
-}
-
-void Enemy::unload() {
-    UnloadTexture(this->texture);
-}
-
-void Enemy::doMovement(Map* map) {
-    
-}
 
 #endif

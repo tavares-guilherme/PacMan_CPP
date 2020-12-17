@@ -20,19 +20,19 @@ void Pacman::unload() {
     UnloadTexture(this->texture);
 }
 
-void Pacman::setX(double a) {
+void Pacman::setX(int a) {
     this->x = a;
 }
-void Pacman::setY(double b){this->y = b;}
-double  Pacman::getX(){return this->x;}
-double  Pacman::getY(){return this->y;}
+void Pacman::setY(int b) {
+    this->y = b;
+}
+int  Pacman::getX(){return this->x;}
+int  Pacman::getY(){return this->y;}
 Texture2D Pacman::getTexture(){return this->texture;}
 
 void Pacman::draw(int frame, int scale) {
     // Arrumar o scale e frame
 
-    cout << "Draw | X, Y = " << this->x << " " << this->y  << endl;
-    cout << "Draw | SX, SY = " << this->speed_x << " " << this->speed_y << endl; 
     DrawTexture(this->getTexture(), frame + scale * (this->x + this->speed_x), frame + scale * (this->y + this->speed_y), WHITE);
 }
 
@@ -68,9 +68,6 @@ void Pacman::getKeyboardMovement() {
         }
     
     }
-
-
-    cout << this->movement << endl;
 }
 
 // Check if the next move is possible, that is, if there isn't a wall in the path.
@@ -97,19 +94,19 @@ bool Pacman::checkNextMove(Map *map) {
 
 void Pacman::doMovement(Map *map) {
     double speed = 0.05;
+    void* aux = this;
 
     if (abs(this->speed_x) >= 1.0) {
         if (this->movement == LEFT) {
             this->x -= 1;
 
-            cout << "Entrou LEFT" << endl;
         } else if (this->movement == RIGHT) {
             this->x += 1;
-            
-            cout << "Entrou right" << endl;
+        
         }
 
-        // After finishing this move, set the next move
+        // After finishing this move, set the next move and compute the score
+        map->computeScore(this->x, this->y);
         
         // If the next move is possible, change the direction
         if(this->checkNextMove(map)) {
@@ -134,16 +131,13 @@ void Pacman::doMovement(Map *map) {
         if (this->movement == UP) {
             this->y -= 1;
 
-            cout << "Entrou UP" << endl;
         } else if (this->movement == DOWN) {
             this->y += 1;
-            
-            cout << "Entrou DOWN" << endl;
+        
         }
 
-        cout << "Entrou no if" << endl;
-
         // After finishing this move, set the next move
+        map->computeScore(this->x, this->y);
         
         // If the next move is possible, change the direction
         if(this->checkNextMove(map)) {

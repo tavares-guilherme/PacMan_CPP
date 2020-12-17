@@ -1,7 +1,6 @@
 #ifndef __PACMAN 
 #define __PACMAN
 
-
 #include "raylib-cpp.hpp"
 #include "map.hpp"
 
@@ -14,8 +13,8 @@ class Map;
 
 class Pacman {
     private :
-        double x;
-        double y;
+        int x;
+        int y;
         int movement;
         int n_move;
         double speed_x = 0;
@@ -32,10 +31,10 @@ class Pacman {
 
         void draw(int frame, int scale);
 
-        void setX(double a);
-        void setY(double b);
-        double getX();
-        double getY();
+        void setX(int a);
+        void setY(int b);
+        int getX();
+        int getY();
         Texture2D getTexture();
 
         void getKeyboardMovement();

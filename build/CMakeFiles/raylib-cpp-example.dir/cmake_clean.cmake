@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/raylib-cpp-example.dir/enemy.cpp.o"
   "CMakeFiles/raylib-cpp-example.dir/main.cpp.o"
   "CMakeFiles/raylib-cpp-example.dir/map.cpp.o"
   "CMakeFiles/raylib-cpp-example.dir/pacman.cpp.o"

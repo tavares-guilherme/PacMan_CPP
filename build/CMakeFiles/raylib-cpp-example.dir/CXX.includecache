@@ -6,33 +6,25 @@
 
 #IncludeRegexTransform: 
 
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/main.cpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.cpp
 iostream
 -
 stdlib.h
 -
+cstring
+-
 stdio.h
 -
+map.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
+enemy.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.hpp
+
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.hpp
 raylib-cpp.hpp
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/raylib-cpp.hpp
 map.hpp
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
-pacman.hpp
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.hpp
-cstring
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/cstring
-
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/map.cpp
-stdlib.h
--
-cstring
--
-stdio.h
--
-pacman.hpp
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.hpp
-physac.h
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/physac.h
 
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
 stdlib.h
@@ -47,50 +39,14 @@ raylib-cpp.hpp
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/raylib-cpp.hpp
 pacman.hpp
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.hpp
-physac.h
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/physac.h
-
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.cpp
-iostream
--
-stdlib.h
--
-cstring
--
-stdio.h
--
-map.hpp
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
-physac.h
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/physac.h
+enemy.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.hpp
 
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.hpp
 raylib-cpp.hpp
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/raylib-cpp.hpp
 map.hpp
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
-physac.h
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/physac.h
-
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/physac.h
-pthread.h
--
-stdio.h
--
-stdlib.h
--
-math.h
--
-stdint.h
--
-raymath.h
-/home/guilherme/Área de Trabalho/PacMan_CPP/src/raymath.h
-time.h
--
-sys/time.h
--
-mach/mach_time.h
--
 
 _deps/raylib-build/src/raylib.h
 stdarg.h

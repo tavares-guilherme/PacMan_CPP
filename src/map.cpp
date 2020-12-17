@@ -1,10 +1,11 @@
-
+#include <iostream>
 #include <stdlib.h>
 #include <cstring>
 #include <stdio.h>
 #include "pacman.hpp"
+#include "enemy.hpp"
 
-Map::Map(FILE* mapFile, Pacman* pacman) {
+Map::Map(FILE* mapFile, Pacman* pacman, Enemy* red, Enemy* yellow) {
     if (mapFile != NULL) {
         
         // Load header
@@ -48,6 +49,7 @@ Map::Map(FILE* mapFile, Pacman* pacman) {
             } else if (currentChar == POINT) {
                 // Point
                 board[i][j] = POINT;
+                this->maxScore++;
             } else if (currentChar == PACMAN) {
                 // Pacman Spawn
                 board[i][j] = PACMAN;
@@ -55,9 +57,15 @@ Map::Map(FILE* mapFile, Pacman* pacman) {
                 // Send x and y to pacman class
                 pacman->setX(j);
                 pacman->setY(i);
-            } else if (currentChar == ENEMY) {
+            } else if (currentChar == REDENEMY) {
                 // Enemy spawn
-                board[i][j] = ENEMY;
+                board[i][j] = REDENEMY;
+                red->setX(j);
+                red->setY(i);
+            }else if (currentChar == YELLOWENEMY) {
+                board[i][j] = YELLOWENEMY;
+                yellow->setX(j);
+                yellow->setY(i);
             }
             j++;
         }
@@ -106,6 +114,20 @@ bool Map::isWall(int y, int x) {
     if (x < width && x >= 0 && y < height && y >= 0 && board[y][x] == WALL)
         return true;
     
-    return false;
+    return false;   
+}
+
+void Map::computeScore(int x, int y) {
     
+
+    if(board[y][x] == POINT) {
+        this->currScore++;
+
+        if(this->currScore < this->maxScore) {
+            board[y][x] = EMPTY;
+        }else {
+            // finish the game;
+        }
+    }
+
 }
