@@ -3,6 +3,8 @@
 
 #include "raylib-cpp.hpp"
 #include "map.hpp"
+#include <thread>
+#include <mutex>
 
 #define RED_ENEMY 1
 #define YELLOW_ENEMY 2
@@ -21,6 +23,8 @@ class Enemy {
 
         bool checkNextMove(Map *map, int direction);
         int type;
+
+        std::thread movementThread;
     public:
         Enemy(int type);
 
@@ -29,12 +33,19 @@ class Enemy {
 
         void setX(int a);
         void setY(int b);
+        int getX();
+        int getY();
         Texture2D getTexture();
         
         void load();
         void unload();
 
         void doMovement(Map *map);
+
+        void initThreads(Map* map);
+        void destroyThreads();
+
+        std::mutex  posM;
 };
 
 #endif

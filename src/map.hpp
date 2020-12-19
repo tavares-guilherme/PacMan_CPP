@@ -8,6 +8,8 @@
 #include "raylib-cpp.hpp"
 #include "pacman.hpp"
 #include "enemy.hpp"
+#include <thread>
+#include <mutex>
 using namespace std;
 
 class Pacman;
@@ -29,8 +31,14 @@ class Map {
         int frame = 20;
         int width;
         int height;
+
         int maxScore = 0;
         int currScore = 0;
+        bool gameOver = false;
+
+        thread movementThread;
+        thread pacmanEnemyHandlerThread;
+
 
     public:
         char **board; /*!- Matriz que armazena o que há em cada espaço do jogo. Será uma região Crítica -!*/ 
@@ -50,7 +58,14 @@ class Map {
         int getWindowHeight();
         int getFrame();
         int getScale();
-        void computeScore(int x, int y);
+        bool getGameOver();
+
+        void computeScore(Pacman* pacman, Enemy* redEnemy, Enemy* yellowEnemy);
+
+        void initThreads(Pacman* pacman, Enemy* redEnemy, Enemy* yellowEnemy);
+        void destroyThreads();
+
+        void endGame();
 };
 
 

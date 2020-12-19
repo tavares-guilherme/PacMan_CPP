@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include "pacman.hpp"
 #include "enemy.hpp"
+#include <thread>
+#include <mutex>
+#include <exception>
+
+using namespace std;
 
 Map::Map(FILE* mapFile, Pacman* pacman, Enemy* red, Enemy* yellow) {
     if (mapFile != NULL) {
@@ -76,7 +81,6 @@ Map::Map(FILE* mapFile, Pacman* pacman, Enemy* red, Enemy* yellow) {
 
 // To-do: Invoke it as a thread
 void Map::draw() {
-
     char currentChar;
 
     for(int i = 0; i < this->height; i++) {
@@ -84,16 +88,16 @@ void Map::draw() {
             currentChar = this->board[i][j];
             switch(currentChar) {
                 case (WALL):
-                    DrawRectangle(this->frame + this->scale * j,     // PosX
-                                  this->frame + this->scale * i,    // PosY
-                                  this->scale, this->scale, WHITE); // Dimentions and color
+                    DrawRectangle(this->frame + this->scale * j,  // PosX
+                                this->frame + this->scale * i,    // PosY
+                                this->scale, this->scale, WHITE); // Dimentions and color
 
                 
                     break;
                 case (POINT):
                     DrawCircle( (this->frame + this->scale * j) + this->scale/2, // Center PosX
                                 (this->frame + this->scale * i) + this->scale/2, // Center PosY
-                                 2, WHITE);                        // Radius and Color 
+                                 2, WHITE);                                      // Radius and Color 
                     break;
             }
         }
@@ -109,6 +113,8 @@ int Map::getWindowHeight() { return(this->height * this->scale + 2*this->frame);
 int Map::getFrame() { return this->frame; }
 int Map::getScale() { return this->scale; }
 
+bool Map::getGameOver() { return this->gameOver; }
+
 bool Map::isWall(int y, int x) {
     // Check if the pixel on that position is a wall
     if (x < width && x >= 0 && y < height && y >= 0 && board[y][x] == WALL)
@@ -117,17 +123,47 @@ bool Map::isWall(int y, int x) {
     return false;   
 }
 
-void Map::computeScore(int x, int y) {
-    
+void Map::computeScore(Pacman* pacman, Enemy* redEnemy, Enemy* yellowEnemy) {
+    pacman->posM.lock();
+    redEnemy->posM.lock();
+    yellowEnemy->posM.lock();
 
-    if(board[y][x] == POINT) {
+    int pacmanX = pacman->getX();
+    int pacmanY = pacman->getY();
+
+    int redEnemyX = redEnemy->getX();
+    int redEnemyY = redEnemy->getY();
+
+    int yellowEnemyX = yellowEnemy->getX();
+    int yellowEnemyY = yellowEnemy->getY();
+
+
+    if(board[pacmanY][pacmanX] == POINT) {
         this->currScore++;
-
-        if(this->currScore < this->maxScore) {
-            board[y][x] = EMPTY;
-        }else {
-            // finish the game;
+        if (this->currScore < this->maxScore) {
+            board[pacmanY][pacmanX] = EMPTY;
+        } else {
+            this->gameOver = true;
+            CloseWindow();
         }
+    } else if((pacmanX == redEnemyX && pacmanY == redEnemyY) || (pacmanX == yellowEnemyX && pacmanY == yellowEnemyY)) {
+        this->gameOver = true;
+        CloseWindow();
     }
 
+    pacman->posM.unlock();
+    redEnemy->posM.unlock();
+    yellowEnemy->posM.unlock();
+}
+
+void Map::initThreads(Pacman* pacman, Enemy* redEnemy, Enemy* yellowEnemy) {
+    this->pacmanEnemyHandlerThread = thread(&Map::computeScore, this, pacman, redEnemy, yellowEnemy);
+}
+
+void Map::destroyThreads() {
+    this->pacmanEnemyHandlerThread.join();
+}
+
+void Map::endGame() {
+    this->gameOver = true;
 }

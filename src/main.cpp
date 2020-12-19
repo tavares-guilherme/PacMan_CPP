@@ -41,27 +41,40 @@ int main() {
 
     while (!w.ShouldClose())    // Detect window close button or ESC key
     {
-       
-        BeginDrawing();
+        // Threads
+        // Init threads
+        pacman.initThreads(&map);
+        redEnemy.initThreads(&map);
+        yellowEnemy.initThreads(&map);
+        map.initThreads(&pacman, &redEnemy, &yellowEnemy);
 
+        BeginDrawing();
         ClearBackground(BLACK);
 
-        // To-do: Detect movement key
-       
-        pacman.getKeyboardMovement();
-        pacman.doMovement(&map);
-        redEnemy.doMovement(&map);
-        yellowEnemy.doMovement(&map);
-
-        // To-do: invoke it as a thread
+        //
         map.draw();
         pacman.draw(map.getFrame(), map.getScale());
         redEnemy.draw(map.getFrame(), map.getScale());
         yellowEnemy.draw(map.getFrame(), map.getScale());
-
+        
         EndDrawing();
+
+        // Terminate threads
+        pacman.destroyThreads();
+        redEnemy.destroyThreads();
+        yellowEnemy.destroyThreads();
+        map.destroyThreads();
        
     }
+
+    // End
+    map.endGame();
+
+    // Terminate threads
+    pacman.destroyThreads();
+    redEnemy.destroyThreads();
+    yellowEnemy.destroyThreads();
+    map.destroyThreads();
 
     // Unload
     pacman.unload();

@@ -16,7 +16,11 @@ Enemy::Enemy(int type) {
 }
 
 void Enemy::draw(int frame, int scale) {
+    this->posM.lock();
+
     DrawTexture(this->getTexture(), frame + scale * (this->x + this->speed_x), frame + scale * (this->y + this->speed_y), WHITE);
+
+    this->posM.unlock();
 }
 
 void Enemy::setX(int a) {
@@ -24,6 +28,12 @@ void Enemy::setX(int a) {
 }
 void Enemy::setY(int b) {
     this->y = b;
+}
+int Enemy::getX() {
+    return this->x;
+}
+int Enemy::getY() {
+    return this->y;
 }
 Texture2D Enemy::getTexture(){return this->texture;}
 
@@ -63,20 +73,20 @@ bool Enemy::checkNextMove(Map *map, int direction) {
 }
 
 void Enemy::doMovement(Map *map) {
-     double speed;
+    double speed;
 
     if(this->type == RED_ENEMY) speed = 0.05;
     else speed = 0.075;
+    // Lock enemy position
+    this->posM.lock();
 
     if (abs(this->speed_x) >= 1.0) {
         if (this->movement == LEFT) {
             this->x -= 1;
 
-            cout << "Entrou LEFT" << endl;
         } else if (this->movement == RIGHT) {
             this->x += 1;
             
-            cout << "Entrou right" << endl;
         }
 
         if(this->checkNextMove(map, UP) || this->checkNextMove(map, DOWN) ) {
@@ -97,16 +107,8 @@ void Enemy::doMovement(Map *map) {
             else
                 this->movement = LEFT;
         }
-        
-    
 
         this->speed_x = 0;
-
-        /*if(this->checkNextMove(map)) {
-            this->speed_x = 0;
-            
-        } else
-            this->speed_x = 0.001;*/
         
     } else {
         if (this->movement == LEFT && !map->isWall(this->y, this->x  + this->speed_x)) {
@@ -124,14 +126,11 @@ void Enemy::doMovement(Map *map) {
         if (this->movement == UP) {
             this->y -= 1;
 
-            cout << "Entrou UP" << endl;
         } else if (this->movement == DOWN) {
             this->y += 1;
             
-            cout << "Entrou DOWN" << endl;
         }
 
-        cout << "Entrou no if" << endl;
 
         // After finishing this move, set the next move
         
@@ -168,4 +167,15 @@ void Enemy::doMovement(Map *map) {
             this->speed_y = 0;
         }
     }
+
+    // Unlock enemy position
+    this->posM.unlock();
+}
+
+void Enemy::initThreads(Map* map) {
+    this->movementThread = std::thread(&Enemy::doMovement, this, map);
+}
+
+void Enemy::destroyThreads() {
+    this->movementThread.join();
 }

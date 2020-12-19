@@ -3,6 +3,8 @@
 
 #include "raylib-cpp.hpp"
 #include "map.hpp"
+#include <thread>
+#include <mutex>
 
 #define UP 1
 #define DOWN 2
@@ -23,6 +25,9 @@ class Pacman {
         Texture2D texture;
 
         bool checkNextMove(Map *map);
+
+        std::thread movementThread;
+        std::thread keyboardHandlerThread;
     public :
         Pacman(int a, int b);
 
@@ -37,9 +42,13 @@ class Pacman {
         int getY();
         Texture2D getTexture();
 
-        void getKeyboardMovement();
+        void getKeyboardMovement(Map* map);
         void doMovement(Map *map);
 
+        void initThreads(Map* map);
+        void destroyThreads();
+
+        std::mutex  posM;
 };
 
 #endif

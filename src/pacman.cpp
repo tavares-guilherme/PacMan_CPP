@@ -31,9 +31,11 @@ int  Pacman::getY(){return this->y;}
 Texture2D Pacman::getTexture(){return this->texture;}
 
 void Pacman::draw(int frame, int scale) {
-    // Arrumar o scale e frame
+    this->posM.lock();
 
     DrawTexture(this->getTexture(), frame + scale * (this->x + this->speed_x), frame + scale * (this->y + this->speed_y), WHITE);
+
+    this->posM.unlock();
 }
 
 double getPositive(double x) {
@@ -43,7 +45,8 @@ double getPositive(double x) {
     return x;
 }
 
-void Pacman::getKeyboardMovement() {
+void Pacman::getKeyboardMovement(Map* map) {
+    this->posM.lock();
 
     // First movement    
     if(this->speed_x == 0 && this->speed_y == 0) {
@@ -68,6 +71,8 @@ void Pacman::getKeyboardMovement() {
         }
     
     }
+
+    this->posM.unlock();
 }
 
 // Check if the next move is possible, that is, if there isn't a wall in the path.
@@ -96,6 +101,9 @@ void Pacman::doMovement(Map *map) {
     double speed = 0.05;
     void* aux = this;
 
+    // Lock pacman position
+    this->posM.lock();
+
     if (abs(this->speed_x) >= 1.0) {
         if (this->movement == LEFT) {
             this->x -= 1;
@@ -104,9 +112,6 @@ void Pacman::doMovement(Map *map) {
             this->x += 1;
         
         }
-
-        // After finishing this move, set the next move and compute the score
-        map->computeScore(this->x, this->y);
         
         // If the next move is possible, change the direction
         if(this->checkNextMove(map)) {
@@ -135,15 +140,13 @@ void Pacman::doMovement(Map *map) {
             this->y += 1;
         
         }
-
-        // After finishing this move, set the next move
-        map->computeScore(this->x, this->y);
         
         // If the next move is possible, change the direction
         if(this->checkNextMove(map)) {
             this->movement = this->n_move;
             this->speed_y = 0;
         }else 
+        
             this->speed_y = 0.001;
         
 
@@ -158,4 +161,16 @@ void Pacman::doMovement(Map *map) {
             this->speed_y = 0;
         }
     }
+
+    this->posM.unlock();
 }
+
+void Pacman::initThreads(Map* map) {
+    this->movementThread = thread(&Pacman::doMovement, this, map);
+    this->keyboardHandlerThread = thread(&Pacman::getKeyboardMovement, this, map);
+}
+
+void Pacman::destroyThreads() {
+    this->movementThread.join();
+    this->keyboardHandlerThread.join();
+};
