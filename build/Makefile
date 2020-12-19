@@ -80,17 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
@@ -146,6 +135,17 @@ package/fast: package
 
 .PHONY : package/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles" "/home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/progress.marks"
@@ -179,17 +179,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named raylib-cpp-example
+# Target rules for targets named pacman
 
 # Build rule for target.
-raylib-cpp-example: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 raylib-cpp-example
-.PHONY : raylib-cpp-example
+pacman: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pacman
+.PHONY : pacman
 
 # fast build rule for target.
-raylib-cpp-example/fast:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/build
-.PHONY : raylib-cpp-example/fast
+pacman/fast:
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/build
+.PHONY : pacman/fast
 
 #=============================================================================
 # Target rules for targets named raylib_static
@@ -236,7 +236,7 @@ enemy.o: enemy.cpp.o
 
 # target to build an object file
 enemy.cpp.o:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/enemy.cpp.o
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/enemy.cpp.o
 .PHONY : enemy.cpp.o
 
 enemy.i: enemy.cpp.i
@@ -245,7 +245,7 @@ enemy.i: enemy.cpp.i
 
 # target to preprocess a source file
 enemy.cpp.i:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/enemy.cpp.i
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/enemy.cpp.i
 .PHONY : enemy.cpp.i
 
 enemy.s: enemy.cpp.s
@@ -254,7 +254,7 @@ enemy.s: enemy.cpp.s
 
 # target to generate assembly for a file
 enemy.cpp.s:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/enemy.cpp.s
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/enemy.cpp.s
 .PHONY : enemy.cpp.s
 
 main.o: main.cpp.o
@@ -263,7 +263,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -272,7 +272,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -281,7 +281,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 map.o: map.cpp.o
@@ -290,7 +290,7 @@ map.o: map.cpp.o
 
 # target to build an object file
 map.cpp.o:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/map.cpp.o
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/map.cpp.o
 .PHONY : map.cpp.o
 
 map.i: map.cpp.i
@@ -299,7 +299,7 @@ map.i: map.cpp.i
 
 # target to preprocess a source file
 map.cpp.i:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/map.cpp.i
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/map.cpp.i
 .PHONY : map.cpp.i
 
 map.s: map.cpp.s
@@ -308,7 +308,7 @@ map.s: map.cpp.s
 
 # target to generate assembly for a file
 map.cpp.s:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/map.cpp.s
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/map.cpp.s
 .PHONY : map.cpp.s
 
 pacman.o: pacman.cpp.o
@@ -317,7 +317,7 @@ pacman.o: pacman.cpp.o
 
 # target to build an object file
 pacman.cpp.o:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/pacman.cpp.o
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/pacman.cpp.o
 .PHONY : pacman.cpp.o
 
 pacman.i: pacman.cpp.i
@@ -326,7 +326,7 @@ pacman.i: pacman.cpp.i
 
 # target to preprocess a source file
 pacman.cpp.i:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/pacman.cpp.i
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/pacman.cpp.i
 .PHONY : pacman.cpp.i
 
 pacman.s: pacman.cpp.s
@@ -335,7 +335,7 @@ pacman.s: pacman.cpp.s
 
 # target to generate assembly for a file
 pacman.cpp.s:
-	$(MAKE) -f CMakeFiles/raylib-cpp-example.dir/build.make CMakeFiles/raylib-cpp-example.dir/pacman.cpp.s
+	$(MAKE) -f CMakeFiles/pacman.dir/build.make CMakeFiles/pacman.dir/pacman.cpp.s
 .PHONY : pacman.cpp.s
 
 # Help Target
@@ -346,13 +346,13 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... edit_cache"
 	@echo "... package_source"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... package"
-	@echo "... raylib-cpp-example"
+	@echo "... edit_cache"
+	@echo "... pacman"
 	@echo "... raylib_static"
 	@echo "... glfw"
 	@echo "... glfw_objlib"

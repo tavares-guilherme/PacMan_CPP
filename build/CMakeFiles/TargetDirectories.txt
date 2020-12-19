@@ -1,12 +1,12 @@
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/install/strip.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/install/local.dir
-/home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/edit_cache.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/package_source.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/install.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/list_install_components.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/rebuild_cache.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/package.dir
-/home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/raylib-cpp-example.dir
+/home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/edit_cache.dir
+/home/guilherme/Área de Trabalho/PacMan_CPP/build/CMakeFiles/pacman.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/_deps/raylib-build/CMakeFiles/install/strip.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/_deps/raylib-build/CMakeFiles/install/local.dir
 /home/guilherme/Área de Trabalho/PacMan_CPP/build/_deps/raylib-build/CMakeFiles/edit_cache.dir

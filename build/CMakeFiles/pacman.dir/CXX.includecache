@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.cpp
+iostream
+-
+stdlib.h
+-
+cstring
+-
+stdio.h
+-
+map.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
+enemy.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.hpp
+
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.hpp
 raylib-cpp.hpp
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/raylib-cpp.hpp
@@ -34,6 +48,26 @@ enemy.hpp
 cstring
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/cstring
 
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/map.cpp
+iostream
+-
+stdlib.h
+-
+cstring
+-
+stdio.h
+-
+pacman.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.hpp
+enemy.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/enemy.hpp
+thread
+-
+mutex
+-
+exception
+-
+
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
 stdlib.h
 -
@@ -53,6 +87,20 @@ thread
 -
 mutex
 -
+
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.cpp
+iostream
+-
+stdlib.h
+-
+cstring
+-
+stdio.h
+-
+math.h
+-
+map.hpp
+/home/guilherme/Área de Trabalho/PacMan_CPP/src/map.hpp
 
 /home/guilherme/Área de Trabalho/PacMan_CPP/src/pacman.hpp
 raylib-cpp.hpp

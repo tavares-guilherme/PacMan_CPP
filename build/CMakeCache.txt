@@ -1047,9 +1047,9 @@ Fontconfig_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Fontconfig_LIBRARY
 Fontconfig_LIBRARY-ADVANCED:INTERNAL=1
 //GLFW pkg-config Requires.private
-GLFW_PKG_DEPS:INTERNAL= x11 x11 x11 x11 x11 x11 x11 x11 x11 x11 x11 x11
+GLFW_PKG_DEPS:INTERNAL= x11 x11 x11 x11 x11 x11 x11 x11 x11 x11 x11 x11 x11
 //GLFW pkg-config Libs.private
-GLFW_PKG_LIBS:INTERNAL= -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl
+GLFW_PKG_LIBS:INTERNAL= -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl -lrt -lm -ldl
 //ADVANCED property for variable: MATH_LIBRARY
 MATH_LIBRARY-ADVANCED:INTERNAL=1
 //Replace any OFF by default with ${OFF} to have it covered by
